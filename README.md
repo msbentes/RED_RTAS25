@@ -16,7 +16,11 @@ cd src
 make
 
 ## Como executar
-../scripts/run_red.sh traces/example_small.csv
+./scripts/run_red.sh traces/example_small.csv
+
+ou
+
+taskset -c 3 src/red_sim traces/example_small.csv | tee "../results/logs/run_$(date +%s).log"
 
 ## Estrutura
 - `src/` → Códigos-fonte do simulador RED.
@@ -30,7 +34,7 @@ make
 - Script automático `pin_cpu.sh` para bind de afinidade.
 
 ## ESQUEMA
-
+```
 RED_RTAS25/
 │
 ├── README.md
@@ -64,5 +68,5 @@ RED_RTAS25/
     ├── plot_latency.py
     ├── plot_utilization.py
     └── plot_deadlines.py
-
+```
 
