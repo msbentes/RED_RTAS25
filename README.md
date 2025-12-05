@@ -12,26 +12,19 @@ do JAMS utilizado no artifact evaluation da RTAS 2025.
 - Gerar métricas: deadlines perdidos, latência, utilização, ocupação.
 
 ## Como compilar
-cd src
 make
 
 ## Como executar
-./scripts/run_red.sh traces/example_small.csv
-
-ou
-
-taskset -c 3 src/red_sim traces/example_small.csv | tee "../results/logs/run_$(date +%s).log"
+./run.sh
 
 ## Estrutura
-- `src/` → Códigos-fonte do simulador RED.
+- `/` → Códigos-fonte do simulador RED.
 - `scripts/` → Scripts de execução e preparação do ambiente.
 - `traces/` → Workloads reais ou sintéticos.
-- `analysis/` → Scripts Python para gerar gráficos.
-- `results/` → Logs produzidos após cada execução.
+- `logs/` → Logs produzidos após cada execução.
+- `gnuplots/` → Scripts para gerar gráficos.
+- `graficos/` → Graficos produzidos após cada execução.
 
-## Compatível com Raspberry Pi
-- Suporte a isolcpus.
-- Script automático `pin_cpu.sh` para bind de afinidade.
 
 ## ESQUEMA
 ```
@@ -39,34 +32,26 @@ RED_RTAS25/
 │
 ├── README.md
 ├── LICENSE
-│
-├── src/
-│   ├── red.h
-│   ├── red.c
-│   ├── simulator.c
-│   ├── parser.c
-│   ├── parser.h
-│   └── Makefile
-│
-├── scripts/
-│   ├── setup_env.sh
-│   ├── run_red.sh
-│   ├── run_batch.sh
-│   └── pin_cpu.sh
-│
+│── sim.c
+│── Makefile
+││
 ├── traces/
-│   ├── example_small.csv
-│   ├── synthetic_generator.py
-│   └── README.md
+│   ├── MPC_times/MPC_long_10/*.csv
+│   └── MPC_times/MPC_short_10/*.csv
 │
-├── results/
-│   ├── logs/
-│   ├── plots/
-│   └── summary/
+├── logs/
+│   ├── dados_comparativos.csv
+│   ├── log_runs.csv
+│   └── log_tasks.csv
 │
-└── analysis/
-    ├── plot_latency.py
-    ├── plot_utilization.py
-    └── plot_deadlines.py
+├── gnuplots/
+│   ├── plot_tempo_medio.gp
+│   ├── plot_aceitacao.gp
+│   └── plot_comparativo.gp
+│
+└── graficos/
+    ├── plot_aceitacao.png
+    ├── plot_comparativo.png
+    └── plot_tempo_medio.png
 ```
 
